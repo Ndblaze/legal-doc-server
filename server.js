@@ -3,9 +3,14 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { DynamoDBClient, ScanCommand, PutItemCommand, GetItemCommand, DeleteItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 
 const app = express();
 const PORT = 5001;
+
 
 // Middleware
 app.use(cors());
@@ -15,8 +20,8 @@ app.use(bodyParser.json());
 const client = new DynamoDBClient({
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'AKIAYUQGS2PRB27VVMUF',
-        secretAccessKey: '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',
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
 });
 
